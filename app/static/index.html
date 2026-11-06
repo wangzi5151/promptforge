@@ -170,7 +170,6 @@ label.fl{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;font-
       <a data-page="library"><span>🗂️</span>提示词库</a>
       <a data-page="analytics"><span>📈</span>数据分析</a>
       <a data-page="team"><span>🔑</span>API 密钥</a>
-      <a data-page="pricing"><span>💎</span>商业版</a>
     </nav>
     <div class="side-foot">
       <div class="row"><span>License</span><span>MIT</span></div>
@@ -234,37 +233,24 @@ label.fl{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;font-
       </div>
     </section>
 
-    <!-- pricing -->
+    <!-- open source -->
     <section class="page" id="page-pricing">
-      <div class="page-head"><div><h1>PromptForge 商业版</h1><p>开源核心永久免费，商业版为团队提供更多能力。</p></div></div>
+      <div class="page-head"><div><h1>🎉 全部功能 · 永久免费</h1><p>PromptForge 是彻底的开源项目，没有任何付费墙、订阅或增值解锁。</p></div></div>
       <div class="grid plans">
-        <div class="card plan">
-          <div class="name">🌍 Community</div>
-          <div class="price">¥0 <small>永久</small></div>
+        <div class="card plan featured" style="grid-column:1/-1;max-width:640px">
+          <div class="name">🌍 PromptForge OSS</div>
+          <div class="price">¥0 <small>永久 · MIT 开源</small></div>
           <ul>
-            <li>无限提示词管理</li><li>版本历史与回滚</li><li>变量模板运行器</li>
-            <li>本地 SQLite 存储</li><li>REST API + Swagger 文档</li><li>MIT 开源协议</li>
+            <li>无限提示词管理与收藏</li>
+            <li>版本历史与一键回滚</li>
+            <li>变量模板实时渲染运行器</li>
+            <li>数据分析仪表盘</li>
+            <li>团队 API 密钥签发</li>
+            <li>REST API + Swagger 文档</li>
+            <li>本地 SQLite 存储，数据主权完全归你</li>
+            <li>Docker 一键部署</li>
           </ul>
-          <button class="btn" onclick="go('library')">当前使用 ✅</button>
-        </div>
-        <div class="card plan featured">
-          <div class="flag">最受欢迎</div>
-          <div class="name">⚡ Pro</div>
-          <div class="price">¥49 <small>/月</small></div>
-          <ul>
-            <li>包含社区版全部功能</li><li>多工作区与团队协作</li><li>A/B 测试与评分看板</li>
-            <li>云端同步与备份</li><li>模型成本分析</li><li>优先支持</li>
-          </ul>
-          <button class="btn primary" onclick="toast('演示环境 — 请到 GitHub 仓库了解详情','ok')">联系我们</button>
-        </div>
-        <div class="card plan">
-          <div class="name">🏢 Enterprise</div>
-          <div class="price">定制 <small>报价</small></div>
-          <ul>
-            <li>包含 Pro 版全部功能</li><li>SSO / SAML 单点登录</li><li>私有化部署与审计日志</li>
-            <li>SLA 99.9% 保障</li><li>专属客户成功经理</li><li>定制集成开发</li>
-          </ul>
-          <button class="btn" onclick="toast('演示环境 — 请到 GitHub 仓库了解详情','ok')">获取报价</button>
+          <button class="btn primary" onclick="go('library');toast('开源功能全量开放 🎉')">开始使用</button>
         </div>
       </div>
     </section>
