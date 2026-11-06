@@ -2,38 +2,84 @@
 
 # ⚡ PromptForge
 
-**开源提示词工程工作台 — 管理版本化、测试并交付你的 AI 提示词**
-
-*Open-source prompt engineering workbench — manage, version, test and ship prompts.*
+**提示词工程工作台 — 把提示词当代码来管理、评测和交付**
 
 [![CI](https://github.com/wangzi5151/promptforge/actions/workflows/ci.yml/badge.svg)](https://github.com/wangzi5151/promptforge/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-6c8cff.svg)](LICENSE)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-3ddc97.svg)](https://www.python.org)
-[![FastAPI](https://img.shields.io/badge/FastAPI-⚡-009688.svg)](https://fastapi.tiangolo.com)
-[![Docker](https://img.shields.io/badge/Docker-ready-2496ED.svg)](Dockerfile)
+[![License: MIT](https://img.shields.io/badge/License-MIT-6d8bff.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.10%2B-3ee0a4.svg)](https://www.python.org)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.110%2B-009688.svg)](https://fastapi.tiangolo.com)
+[![Docker](https://img.shields.io/badge/docker-ready-2496ED.svg)](Dockerfile)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-a97bff.svg)](CONTRIBUTING.md)
 
-本地优先 · 零外部依赖 · 团队就绪 · 永久免费开源核心
+[功能](#-功能) · [快速开始](#-快速开始) · [接入模型](#-接入任意模型) · [API](#-rest-api) · [架构](#-架构) · [路线图](#-路线图)
 
 </div>
 
 ---
 
-## 🎯 为什么是 PromptForge？
+## 为什么需要它
 
-AI Agent 与提示词工程是当下开源最火热的赛道。然而多数团队把提示词散落在聊天记录、备忘录和代码注释里——**提示词是资产，值得被工程化管理**。
+大多数团队把提示词散落在聊天记录、Notion 页面和代码注释里。改了哪一版、为什么改、新版到底更好还是更差——**没人知道**。
 
-PromptForge 把你的提示词变成**可版本化、可测试、可交付**的一等公民：
+PromptForge 把提示词变成**可版本化、可运行、可评测**的资产：
 
-| 能力 | 说明 |
-|---|---|
-| 🗂️ **提示词库** | 搜索、分类、标签、收藏，统一管理所有提示词 |
-| 🕘 **版本历史** | 每次修改自动留档，一键回滚任意历史版本 |
-| 🔤 **变量模板** | `{{变量}}` 占位符自动识别，实时渲染预览 |
-| ▶ **测试运行器** | 填变量 → 实时渲染 → 直接投喂 LLM，运行记录留存 |
-| 📊 **数据分析** | 14 天运行趋势、Top 提示词、分类分布 |
-| 🔑 **API 密钥** | 为团队与自动化流程签发 REST API 密钥 |
-| 📦 **一键导出** | 全量 JSON 导出，数据主权在你手里 |
-| 🌐 **内置 SPA** | 精美玻璃拟态暗色界面，流畅动效 |
+- 改一个字就自动留档，随时比对任意两个版本的 diff
+- 一键把模板发给真实模型，看实际输出而不是脑补
+- 给每次输出打分，让"这个提示词好不好"变成可量化的数字
+- 同一组变量并排跑 A/B 两个变体，用结果而不是偏好做决定
+
+## 📸 界面预览
+
+<table>
+<tr>
+<td width="50%"><img src="docs/dashboard.jpg" alt="概览" /></td>
+<td width="50%"><img src="docs/library.jpg" alt="提示词库" /></td>
+</tr>
+<tr>
+<td><img src="docs/run.jpg" alt="运行与评测" /></td>
+<td><img src="docs/settings.jpg" alt="模型设置" /></td>
+</tr>
+</table>
+
+## ✨ 功能
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+**编写与管理**
+- `{{变量}}` 模板语法，自动识别、按出现顺序排列
+- 分类、标签、收藏、全文搜索
+- 版本历史：每次正文变更自动生成新版本
+- 版本 diff（逐行高亮）与一键回滚
+- JSON 一键导入 / 导出，数据完全归你
+
+**运行与评测**
+- 兼容任意 OpenAI 协议端点
+- 流式输出（SSE），打字机效果
+- A/B 对比：同一组变量跑两个变体，并排看结果
+- 每次运行记录模型、延迟、token 用量
+- 1–5 星评分回写，驱动统计面板
+
+</td>
+<td width="50%" valign="top">
+
+**洞察**
+- 14 天运行趋势
+- 热门提示词排行（运行次数 + 平均分）
+- 分类分布
+- 平均延迟、累计 token 消耗
+
+**工程化**
+- FastAPI + SQLite，单进程零外部依赖
+- 前进式数据库迁移，升级不丢数据
+- 可选 API Key 鉴权（`PROMPTFORGE_REQUIRE_KEY=1`）
+- 24 个自动化测试，CI 覆盖 Python 3.10–3.12 + Docker 构建
+- 暗色玻璃拟态界面，键盘优先
+
+</td>
+</tr>
+</table>
 
 ## 🚀 快速开始
 
@@ -41,75 +87,134 @@ PromptForge 把你的提示词变成**可版本化、可测试、可交付**的�
 git clone https://github.com/wangzi5151/promptforge.git
 cd promptforge
 pip install -r requirements-dev.txt
-make run
-# 打开 http://localhost:8000
+make run          # → http://localhost:8000
 ```
 
-首次启动自动初始化 SQLite 数据库并注入 8 条精选演示提示词。
+首次启动会自动建库并注入 **10 条生产级提示词模板**（代码评审、SQL 优化、RAG 分块、结构化抽取…），开箱即用。
 
-### Docker 部署（推荐生产）
+<details>
+<summary><b>Docker 部署（推荐生产环境）</b></summary>
 
 ```bash
 docker compose up -d --build
-# 打开 http://localhost:8000
+# → http://localhost:8000
 ```
 
 数据持久化在 `promptforge-data` 卷中。
+</details>
+
+<details>
+<summary><b>配置项</b></summary>
+
+| 环境变量 | 默认值 | 说明 |
+|---|---|---|
+| `PROMPTFORGE_DB` | `./promptforge.db` | SQLite 数据库路径 |
+| `PROMPTFORGE_HOST` | `0.0.0.0` | 监听地址 |
+| `PROMPTFORGE_PORT` | `8000` | 监听端口 |
+| `PROMPTFORGE_REQUIRE_KEY` | `0` | 设为 `1` 时，写操作需要 `X-API-Key` |
+</details>
+
+## 🔌 接入任意模型
+
+打开 **模型设置**，填入任意 OpenAI 兼容服务的 Base URL 与 Key：
+
+| 服务 | Base URL | 示例模型 |
+|---|---|---|
+| OpenAI | `https://api.openai.com/v1` | `gpt-4o-mini` |
+| DeepSeek | `https://api.deepseek.com/v1` | `deepseek-chat` |
+| Moonshot | `https://api.moonshot.cn/v1` | `moonshot-v1-8k` |
+| 阿里云百炼 | `https://dashscope.aliyuncs.com/compatible-mode/v1` | `qwen-plus` |
+| Ollama（本地） | `http://localhost:11434/v1` | `llama3.1` |
+| vLLM / LM Studio | 你的地址 | 你的模型 |
+
+> **不配 Key 也能跑。** 未配置时自动进入「演示模式」，用确定性的本地模拟输出，方便先体验完整流程。
 
 ## 📡 REST API
 
-启动后访问 **`/docs`** 获取完整交互式 Swagger 文档。核心端点：
-
-```http
-GET    /api/prompts                 # 列表（支持 ?q=&category=&tag=&favorites=）
-POST   /api/prompts                 # 创建
-PATCH  /api/prompts/{id}            # 更新（正文变更自动产生新版本）
-DELETE /api/prompts/{id}            # 删除
-GET    /api/prompts/{id}/versions   # 版本历史
-POST   /api/prompts/{id}/run        # 变量渲染运行
-GET    /api/analytics               # 分析指标
-GET    /api/export                  # 全量导出
-```
-
-示例：
+启动后访问 **`/docs`** 获取交互式 Swagger 文档。
 
 ```bash
+# 创建
 curl -X POST http://localhost:8000/api/prompts \
   -H "Content-Type: application/json" \
-  -d '{"title":"翻译助手","body":"将以下{{lang}}文本翻译成中文：{{text}}"}'
+  -d '{"title":"翻译助手","body":"将以下 {{lang}} 文本翻译成中文：{{text}}"}'
+
+# 渲染 + 调用模型
+curl -X POST http://localhost:8000/api/prompts/{id}/run \
+  -H "Content-Type: application/json" \
+  -d '{"variables":{"lang":"English","text":"hello"},"call_llm":true}'
+
+# 流式（SSE）
+curl -N -X POST http://localhost:8000/api/prompts/{id}/stream \
+  -d '{"variables":{"lang":"English","text":"hello"}}'
 ```
 
-## 💚 完全免费 · 无任何付费墙
+<details>
+<summary><b>完整端点列表</b></summary>
 
-PromptForge 是彻底的开源项目（MIT）：**所有功能永久免费**，没有订阅、没有 Pro 版、没有增值解锁。所有能力（管理/版本/运行器/分析/API/导出）对每一位用户全量开放。如果你觉得有用，欢迎 Star ⭐ 与 PR 🤝。
+| 方法 | 路径 | 说明 |
+|---|---|---|
+| `GET` | `/api/health` | 健康检查与模型就绪状态 |
+| `GET` | `/api/prompts` | 列表（`?q=&category=&tag=&favorites=`） |
+| `POST` | `/api/prompts` | 创建 |
+| `GET` | `/api/prompts/{id}` | 详情 |
+| `PATCH` | `/api/prompts/{id}` | 更新（正文变更自动升版本） |
+| `DELETE` | `/api/prompts/{id}` | 删除（级联清理版本与运行记录） |
+| `POST` | `/api/prompts/{id}/favorite` | 切换收藏 |
+| `GET` | `/api/prompts/{id}/versions` | 版本列表 |
+| `POST` | `/api/prompts/{id}/versions/{v}/restore` | 回滚到指定版本 |
+| `GET` | `/api/prompts/{id}/versions/{v}/diff` | 版本 diff |
+| `POST` | `/api/prompts/{id}/run` | 渲染并（可选）调用模型 |
+| `POST` | `/api/prompts/{id}/stream` | SSE 流式输出 |
+| `POST` | `/api/prompts/{id}/compare` | A/B 双变体对比 |
+| `GET` | `/api/runs` · `/api/prompts/{id}/runs` | 运行记录 |
+| `POST` | `/api/runs/{id}/score` | 评分 1–5 |
+| `GET` | `/api/analytics` | 聚合统计 |
+| `GET/POST/DELETE` | `/api/providers` | 模型服务配置 |
+| `POST` | `/api/providers/{id}/ping` | 连通性测试 |
+| `GET/POST/DELETE` | `/api/api-keys` | API 密钥 |
+| `GET/POST` | `/api/export` · `/api/import` | 全量导入导出 |
 
-## 🏗️ 架构
+</details>
+
+## 🏗 架构
 
 ```
-├── app/
-│   ├── main.py          # FastAPI 应用 + REST API
-│   ├── db.py            # SQLite 数据层（WAL，线程安全）
-│   ├── config.py        # 环境变量配置
-│   └── static/index.html # 内置 SPA（零构建，无前端依赖）
-├── tests/test_api.py    # Pytest 全覆盖测试
-├── Dockerfile / docker-compose.yml
-└── .github/workflows/ci.yml  # CI：Python 3.10–3.12 + Docker 构建
+app/
+├── main.py      FastAPI 路由层（含 SSE 流式、A/B 对比、鉴权依赖）
+├── db.py        SQLite 数据层：WAL、线程局部连接、前进式迁移
+├── llm.py       OpenAI 协议客户端（标准库 urllib，无额外依赖）+ 离线模拟
+├── config.py    环境变量配置
+└── static/      无构建 SPA
+    ├── index.html
+    ├── app.css   设计系统：暗色玻璃拟态
+    └── app.js    路由、渲染、SSE、Markdown、diff
+tests/           24 个 pytest 用例
 ```
 
-技术选型：**FastAPI + SQLite + 原生 SPA**——单进程、零数据库服务、单二进制式部署，是自托管工具的最优解。
+**技术取舍：** 单进程 FastAPI + SQLite，不需要 Postgres、Redis 或 Node 构建链。一个 `pip install` 就能跑，Docker 镜像不到 200MB。这是自托管工具最合理的形态——**部署成本应该趋近于零**。
 
-## 🛣️ 路线图
+## 🗺 路线图
 
-- [ ] 提示词评分与 A/B 对比
-- [ ] 团队协作与权限
-- [ ] MCP Server 接入（作为提示词工具源）
-- [ ] 多语言 i18n
-- [ ] 模型调用成本分析
+- [x] 提示词 CRUD / 版本 / diff / 回滚
+- [x] 变量模板与实时渲染
+- [x] OpenAI 协议接入 + 流式输出
+- [x] A/B 对比与评分回写
+- [x] 分析面板
+- [ ] 提示词评分的历史趋势曲线
+- [ ] 批量评测数据集（golden set）跑分
+- [ ] MCP Server 模式：把提示词库暴露给任意 Agent
+- [ ] 多用户与团队工作区
+- [ ] 中文 / 英文双语界面
 
 ## 🤝 贡献
 
-欢迎 PR！见 [CONTRIBUTING.md](CONTRIBUTING.md)。测试全绿即可合并。
+欢迎 Issue 与 PR，见 [CONTRIBUTING.md](CONTRIBUTING.md)。`make test` 全绿即可。
 
 ## 📄 许可
 
 [MIT](LICENSE) © 2026 PromptForge contributors
+
+<div align="center">
+<sub>如果这个项目对你有帮助，欢迎点一个 ⭐</sub>
+</div>
