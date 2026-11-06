@@ -1,0 +1,10 @@
+services:
+  promptforge:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - promptforge-data:/data
+    restart: unless-stopped
+volumes:
+  promptforge-data:
